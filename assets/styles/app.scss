@@ -1,0 +1,22 @@
+// @import "custom";
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    background-image: url("../images/bg.jpg");
+
+    h1 {
+        color: #e7480f;
+    }
+
+    nav {
+        li:hover {
+            background-color:#007BFF;
+            color: #e7480f;
+        }
+    }
+
+    .thumbnail{
+        background-color: white;
+    }
+}
+

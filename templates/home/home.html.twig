@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenu chez burger Food{% endblock %}
+
+{% block body %}
+    <div class="row">
+    {% for product in products %}
+    {% include "partials/_product.html.twig" %}
+    {% endfor %}
+    </div>
+
+{% endblock %}

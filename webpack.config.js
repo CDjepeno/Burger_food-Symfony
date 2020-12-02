@@ -23,10 +23,10 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('app/js', './assets/app.js')
-    .addStyleEntry('app/css', './assets/styles/app.scss')
+    .addEntry('js/app', './assets/app.js')
+    .addStyleEntry('css/app', './assets/styles/app.scss')
     .copyFiles({
-        from: './assets/img',
+        from: './assets/images',
         // optional target path, relative to the output dir
         to: 'images/[path][name].[ext]',
         // if versioning is enabled, add the file hash too
