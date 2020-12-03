@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Product
 {
@@ -48,6 +51,21 @@ class Product
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
+
+    /**
+     * Permet d'initailiser le slug !
+     * 
+     *@ORM\PrePersist
+     *@ORM\PreUpdate
+     * @return void
+     */
+    public function createSlug()
+    {
+        if(empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->name);
+        }
+    }
 
     /**
      * @ORM\OneToMany(targetEntity=Orderdetails::class, mappedBy="products")

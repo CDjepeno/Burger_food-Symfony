@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+{% if isUpdate is defined %}
+    Modification {{product.name}}
+{% endif %}
+    Ajout d'un produit
+{% endblock %}
+
+{% block body %}
+    {% if isUpdate %}
+    <h2>Modification d'un produit</h2>
+    {% else %}
+    <h2>Ajout d'un produit</h2>
+    {% endif %}
+    <div class="card bg-white p-5 my-5">
+    {{form_start(form)}}
+    {{form_widget(form)}}
+        {% if isUpdate %}
+        <button type="submit" class="btn btn-primary">Modifier</button>
+        {% else %}
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+        {% endif %}
+    {{form_end(form)}}
+    </div>
+{% endblock %}

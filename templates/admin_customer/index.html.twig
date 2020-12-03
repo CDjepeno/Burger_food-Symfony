@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminProductController!{% endblock %}
+
+{% block body %}
+<h2>Liste des clients</h2>
+{% for label,messages in app.flashes %}
+    <div class="container">
+        <div class="alert alert-{{label}}">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+<div class="card bg-white p-5 mt-4">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Pseudo</th>
+                <th>Email</th>
+                <th>Commande</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr>
+                <td>{{customer.username}}</td>
+                <td>{{customer.email}}</td>
+                <td>{{customer.orders | length}}</td>
+                <td>
+                    <a href="{{ path("admin_update", {slug:customer.slug}) }}" class="btn btn-primary"><i class="fi-xnsuxl-edit-solid"></i></a> 
+                    <a href="#" class="btn btn-danger"><i class="fi-xnsuxl-trash-bin"></i></a> 
+                    {# <a href="{{ path("customer_show", {slug:customer.slug}) }}" class="btn btn-success"><i class="fi-xwluxl-eye-wide"></i></a>  #}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
