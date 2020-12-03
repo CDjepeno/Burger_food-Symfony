@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{product.name}}
+{% endblock %}
+
+{% block body %}
+
+<div class="card bg-secondary p-5">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card bg-ligth mb-4 ">
+                <a href="{{ path("product_show", {slug: product.slug}) }}"><img src="{{product.image}}" alt="{{ product.name }}" class="img-card show"></a>
+                {# <img src="{{ asset("build/images" ~ product.image) }}" alt="{{ product.name }}"> #}
+                <div class="price">{{ product.price }}&euro;</div>
+                <div class="caption">
+                    <h3 class="p-2">{{ product.name }}</h3>
+                    <strong><p class="p-2">{{ product.description | raw }}</p></strong>
+                    <a href="#" class="btn btn-primary w-100" role="button"><span class="glyphicon glyphicon-shopping-cart"></span> Commander</a>
+                </div>
+            </div>
+        </div>   
+        <div class="col-sm-6 ">
+            <strong><p>Nom : {{product.name}}</p></strong> 
+            <strong><p>Prix : {{product.price}}&euro;</p></strong> 
+            <strong><p>Description : {{product.description}}</p></strong>
+
+            <div class="actions">
+                <a href="{{ path('home_menus') }}" class="btn btn-primary"><span class="glyphicon-arrow-left"></span> Retour</a>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock %}

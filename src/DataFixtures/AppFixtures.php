@@ -9,14 +9,17 @@ use App\Entity\Customer;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
 {
     private $encoder; 
+    private $slugger; 
 
-    public function __construct(UserPasswordEncoderInterface $encoder)
+    public function __construct(UserPasswordEncoderInterface $encoder, SluggerInterface $slugger)
     {
         $this->encoder = $encoder;
+        $this->slugger = $slugger;
     }
     public function load(ObjectManager $manager)
     {
@@ -33,7 +36,7 @@ class AppFixtures extends Fixture
             $hash = $this->encoder->encodePassword($user, 'password');
 
             $user->setUserName($faker->firstname($genre))
-                 ->setSlug($faker->slug())
+                 ->setSlug(strtolower($this->slugger->slug($user->getUsername())))
                  ->setEmail($faker->email)
                  ->setPassword($hash)
                  ->setRoles("ROLE_USER");
@@ -70,7 +73,7 @@ class AppFixtures extends Fixture
                         ->setDescription($content)
                         ->setPrice(mt_rand(5, 15))
                         ->setCategory($category)
-                        ->setSlug($faker->slug());
+                        ->setSlug(strtolower($this->slugger->slug($product->getName())));
                     $manager->persist($product);
 
                     // Gestions des commandes.

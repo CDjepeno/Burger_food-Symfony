@@ -5,10 +5,12 @@ body {
 
     h1 {
         color : #e7480f;
+        font-size: 4rem;
     }
 
     nav {
         a {
+            font-size: 1.5rem;
             &:hover{
                 background-color :#007BFF;
                 color            : #e7480f;
@@ -21,6 +23,12 @@ body {
             background : #ffd301;
             width      : 21.6rem;
             height     : 15rem;
+
+            &.show {
+                background : #ffd301;
+                width      : 30.5rem;
+                height     : 15rem;
+            }
         }
 
         .price {
@@ -28,9 +36,9 @@ body {
             color      : #fff;
             text-shadow: 2px 2px #333;
             position   : absolute;
-            right      : 0.5rem;
+            right      : -0.5rem;
             top        : 1rem;
-            padding    : 5px 1rem;
+            padding    : 5px 2rem;
             font-size  : 1.2rem;
             border-radius: 0.2rem;
         }
