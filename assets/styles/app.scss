@@ -1,22 +1,46 @@
-// @import "custom";
 @import "~bootstrap/scss/bootstrap";
 
 body {
-    background-image: url("../images/bg.jpg");
+    background-image : url("../images/bg.jpg");
 
     h1 {
-        color: #e7480f;
+        color : #e7480f;
     }
 
     nav {
-        li:hover {
-            background-color:#007BFF;
-            color: #e7480f;
+        a {
+            &:hover{
+                background-color :#007BFF;
+                color            : #e7480f;
+            }
         }
     }
+    .card {
 
-    .thumbnail{
-        background-color: white;
+        .img-card {
+            background : #ffd301;
+            width      : 21.6rem;
+            height     : 15rem;
+        }
+
+        .price {
+            background : #5cb85c;
+            color      : #fff;
+            text-shadow: 2px 2px #333;
+            position   : absolute;
+            right      : 0.5rem;
+            top        : 1rem;
+            padding    : 5px 1rem;
+            font-size  : 1.2rem;
+            border-radius: 0.2rem;
+        }
+
+        h3 {
+            color : #e7480f;
+        }
+
     }
+
+   
 }
 

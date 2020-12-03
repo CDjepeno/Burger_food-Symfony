@@ -1,11 +1,11 @@
 <div class="col-sm-6 col-md-4">
-    <div class="card bg-ligth">
-        <img src="{{product.image}}" alt="{{ product.name }}">
+    <div class="card bg-ligth mb-4">
+        <img src="{{product.image}}" alt="{{ product.name }}" class="img-card">
         {# <img src="{{ asset("build/images" ~ product.image) }}" alt="{{ product.name }}"> #}
-        <div>{{ product.price }}&euro;</div>
+        <div class="price">{{ product.price }}&euro;</div>
         <div class="caption">
-            <h4>{{ product.name }}</h4>
-            <p>{{ product.description | raw }}</p>
+            <h3 class="p-2">{{ product.name }}</h3>
+            <strong><p class="p-2">{{ product.description | raw }}</p></strong>
             <a href="#" class="btn btn-primary w-100" role="button"><span class="glyphicon glyphicon-shopping-cart"></span> Commander</a>
         </div>
     </div>

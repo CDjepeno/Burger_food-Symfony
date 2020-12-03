@@ -44,7 +44,7 @@ class AppFixtures extends Fixture
         }
 
         // Nous gérons les catégory
-        $categories = ['burger','snack','salade','dessert','menu'];
+        $categories = ['burger','snack','salade','dessert','menu','drink'];
             foreach ($categories as $cat) {
                 $category = new Category;
 
@@ -68,7 +68,7 @@ class AppFixtures extends Fixture
                     $product->setName($title)
                         ->setImage($imageProduct)
                         ->setDescription($content)
-                        ->setPrice(mt_rand(100, 500))
+                        ->setPrice(mt_rand(5, 15))
                         ->setCategory($category)
                         ->setSlug($faker->slug());
                     $manager->persist($product);
