@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProductController extends AbstractController
 {
+   
     /**
      * Permet de récupérer tous les burgers
      * 
@@ -79,7 +80,7 @@ class ProductController extends AbstractController
     /**
      * Permet d'afficher un produit
      *
-     * @Route("/{slug}", name="product_show")
+     * @Route("/product/{slug}", name="product_show")
      * 
      * @param Product $product
      * 
@@ -87,8 +88,28 @@ class ProductController extends AbstractController
      */
     public function show(Product $product): Response
     {
+        if(!$product){
+            throw $this->createNotFoundException("Le produit demander n'existe pas");
+        }
         return $this->render('product/show.html.twig',[
             "product" => $product
+        ]);
+    }
+
+     /**
+     * Permet de recupéter des produits par catégories
+     *
+     * @Route("/category/{id_category}", name="product_cat")
+     * 
+     * @param ProductRepository $product
+     * @param [int] $id_category
+     * 
+     * @return Response
+     */
+    public function productsByCategory(ProductRepository $product,$id_category)
+    {
+        return $this->render('product/products_cat.html.twig',[
+            "products" => $product->getProductByCategory($id_category)
         ]);
     }
 }

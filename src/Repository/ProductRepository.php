@@ -20,6 +20,23 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
+     * Récupère les véhicules par leurs catégories
+     *
+     * @param [type] $id_category
+     * @return Car[]
+     */
+    public function getProductByCategory($id_category)
+    {
+        return $this->createQueryBuilder('p')
+                    ->join('p.category', 'p_c')
+                    ->select('p')
+                    ->where('p_c.id = :cat')
+                    ->setParameter(':cat', $id_category)
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    /**
      * Permet de récupérer les produits de la catégorie menu
      * 
      * @return Product[]

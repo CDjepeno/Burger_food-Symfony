@@ -3,7 +3,16 @@
 {% block title %}aliment par catégorie{% endblock %}
 
 {% block body %}
+    <nav aria-label="breadcrumb ">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('home_menus') }}">Acceuil</a></li>
+            {% for product in products | slice(1,1) %}
+            <li class="breadcrumb-item"><a href="{{ path('products_drink') }}">{{product.category.name}}</a></li>
+            {% endfor %}
+        </ol>
+    </nav>
     <div class="row my-5">
+    
     {% for product in products %}
         {% include "partials/_product.html.twig" %}
     {% endfor %}

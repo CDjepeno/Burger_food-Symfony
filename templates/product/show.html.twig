@@ -5,7 +5,13 @@
 {% endblock %}
 
 {% block body %}
-
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('home_menus') }}">Acceuil</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('product_cat', {id_category : product.category.id}) }}">{{product.category.name}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{product.name}}</li>
+        </ol>
+    </nav>
 <div class="card bg-secondary p-5">
     <div class="row">
         <div class="col-sm-6">
