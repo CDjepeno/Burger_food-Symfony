@@ -1,0 +1,11 @@
+ <nav class="d-flex justify-content-center my-2">
+    <ul class="nav nav-pills">
+        {# <li role="presentation" class="nav-item"><a class="nav-link {% if app.request.uri %}active{% endif %}" href="#" data-toggles="tab">Menus</a></li> #}
+        <li role="presentation" class="nav-item"><a class="nav-link" href="{{ path('home_menus') }}" data-toggles="tab">Menus</a></li>
+        <li role="presentation" class="nav-item"><a class="nav-link" href="{{ path('products_burger') }}" data-toggles="tab">Burgers</a></li>
+        <li role="presentation" class="nav-item"><a class="nav-link" href="{{ path('products_snack') }}" data-toggles="tab">Snacks</a></li>
+        <li role="presentation" class="nav-item"><a class="nav-link" href="{{ path('products_salade') }}" data-toggles="tab">Salades</a></li>
+        <li role="presentation" class="nav-item"><a class="nav-link" href="{{ path('products_drink') }}" data-toggles="tab">Boisson</a></li>
+        <li role="presentation" class="nav-item"><a class="nav-link" href="{{ path('products_dessert') }}" data-toggles="tab">Deserts</a></li>
+    </ul>
+</nav>

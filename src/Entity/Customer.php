@@ -2,14 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\CustomerRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CustomerRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
+ * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
 class Customer implements UserInterface
 {
@@ -36,6 +41,11 @@ class Customer implements UserInterface
     private $password;
 
     /**
+     * @Assert\EqualTo(propertyPath="password")
+     */
+    public $passwordConfirm;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $email;
@@ -44,6 +54,21 @@ class Customer implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $roles;
+
+     /**
+     * Permet d'initialiser le slug lors de l'insertion et la modification dans la base de donnée
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     *
+     * @return slug
+     */
+    public function initializeSlug() {
+        if(empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->username);
+        }
+    }
 
     /**
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="customer")

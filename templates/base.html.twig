@@ -7,9 +7,10 @@
         {{ encore_entry_link_tags('css/app') }}
     </head>
     <body>
+        {% include "partials/_navbar.html.twig" %}
         <div class="container">
-            <h1 class="text-logo text-center py-5">Burger Food</h1>
-            {% include "partials/_navbar.html.Twig" %}
+            <h1 class="text-logo text-center py-3">Burger Food</h1>
+            {% include "partials/_navbarProducts.html.Twig" %}
             {% block body %}{% endblock %}
         </div>
         {{ encore_entry_script_tags('js/app') }}
