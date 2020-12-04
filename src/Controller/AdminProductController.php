@@ -69,4 +69,31 @@ class AdminProductController extends AbstractController
             "product"  => $product
         ]);
     }
+
+    /**
+     * Permet de supprimer un produit
+     * 
+     * @Route("/delete/{slug}", name="admin_delete_product", methods="sup")
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param Product $product
+     * 
+     * @return Response
+     */
+    public function delete(Product $product, Request $request,EntityManagerInterface $em) : Response
+    {
+        if($this->isCsrfTokenValid("SUP". $product->getId(), $request->get('_token'))){
+ 
+            $em->remove($product);
+            $em->flush();
+ 
+            $this->addFlash(
+                "danger",
+                "Le produit a bien été supprimer"
+            );
+ 
+            return $this->redirectToRoute('admin_products');
+        }
+    }
 }

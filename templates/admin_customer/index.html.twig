@@ -30,9 +30,13 @@
                 <td>{{customer.email}}</td>
                 <td>{{customer.orders | length}}</td>
                 <td>
-                    <a href="{{ path("admin_update", {slug:customer.slug}) }}" class="btn btn-primary"><i class="fi-xnsuxl-edit-solid"></i></a> 
-                    <a href="#" class="btn btn-danger"><i class="fi-xnsuxl-trash-bin"></i></a> 
-                    {# <a href="{{ path("customer_show", {slug:customer.slug}) }}" class="btn btn-success"><i class="fi-xwluxl-eye-wide"></i></a>  #}
+                    <a href="#" class="btn btn-success"><i class="fi-xwluxl-eye-wide"></i></a> 
+                    {# <a href="#" class="btn btn-danger"><i class="fi-xnsuxl-trash-bin"></i></a>  #}
+                    <form method="POST" style="display:inline-block" action="{{ path('admin_delete_customer', {id:customer.id}) }}" onsubmit="return confirm('Confirmer la suppression')">
+                        <input type="hidden" name="_method" value="delete">
+                        <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ customer.id)}}">
+                        <input type="submit" class="btn btn-danger" value="supprimer" >
+                    </form>
                 </td>
             </tr>
             {% endfor %}
