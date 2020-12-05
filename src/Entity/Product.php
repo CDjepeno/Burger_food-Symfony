@@ -12,12 +12,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  * @ORM\HasLifecycleCallbacks
  * @vich\Uploadable
+ * @UniqueEntity(fields={"name"}, message="Un produit a déjà ce nom")
  */
 class Product
 {
@@ -30,11 +33,13 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(max=20, maxMessage="Votre nom de produit doit faire pas plus de 20 caractère")
      */
     private $name;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive(message="Le nombre doit être positif")
      */
     private $price;
 
@@ -69,7 +74,7 @@ class Product
      * 
      *@ORM\PrePersist
      *@ORM\PreUpdate
-     * @return void
+     * @return Slug
      */
     public function createSlug()
     {

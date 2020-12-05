@@ -47,6 +47,7 @@ class Customer implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(mesage="veuillez renseigner un email valide !")
      */
     private $email;
 
