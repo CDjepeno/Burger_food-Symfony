@@ -7,11 +7,17 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  * @ORM\HasLifecycleCallbacks
+ * @vich\Uploadable
  */
 class Product
 {
@@ -43,6 +49,12 @@ class Product
     private $image;
 
     /**
+     * @Vich\UploadableField(mapping="product_image", fileNameProperty="image")
+     * @var File|null
+     */
+    private $imageFile;
+    
+    /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
      */
     private $category;
@@ -72,12 +84,16 @@ class Product
      */
     private $orderdetails;
 
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTimeInterface|null
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->orderdetails = new ArrayCollection();
     }
-
-   
 
     public function getId(): ?int
     {
@@ -125,7 +141,7 @@ class Product
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 
@@ -186,4 +202,38 @@ class Product
         return $this;
     }
 
+    /**
+     * Get the value of imageFile
+     */ 
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Set the value of imageFile
+     *
+     * @return  self
+     */ 
+    public function setImageFile(?File $imageFile = null): self
+    {
+        $this->imageFile = $imageFile;
+
+        if($this->imageFile instanceof UploadedFile) {
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
 }

@@ -29,7 +29,7 @@ class RegistrationController extends AbstractController
         $user = new Customer();
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
-        // dd($form->handleRequest($request));
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
                 $passwordEncoder->encodePassword(

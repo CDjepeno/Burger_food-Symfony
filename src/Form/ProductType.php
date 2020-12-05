@@ -21,7 +21,7 @@ class ProductType extends ApplicationType
             ->add('name', TextType::class, $this->getConfiguration("Nom","nom du produit",['data_class' => null]))
             ->add('price', NumberType::class, $this->getConfiguration("Prix","prix de vente",['data_class' => null]))
             ->add('description', TextareaType::class, $this->getConfiguration("Description","description du produit",['data_class' => null]))
-            ->add('image', FileType::class, $this->getConfiguration("Image","image du produit",['data_class' => null]))
+            ->add('imageFile', FileType::class, $this->getConfiguration("Image","image du produit",['data_class' => null]))
             ->add('category', EntityType::class,[
                 "choice_label" => "name", 
                 "class"        => Category::class
