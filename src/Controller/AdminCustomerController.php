@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminCustomerController extends AbstractController
@@ -16,6 +17,7 @@ class AdminCustomerController extends AbstractController
      * Permet de d'afficher la liste des clients
      * 
      * @Route("/admin/customers", name="admin_customers")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'avez pas le droit d'acceder à cette ressource")
      * 
      * @return Response
      */
@@ -29,7 +31,8 @@ class AdminCustomerController extends AbstractController
     /**
      * Permet de supprimer un Utilisateur
      * 
-     * @Route("/delete/{id}", name="admin_delete_customer", methods="delete")
+     * @Route("/admin/delete/{id}", name="admin_delete_customer", methods="delete")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'avez pas le droit d'acceder à cette ressource")
      *
      * @param Request $request
      * @param EntityManagerInterface $em

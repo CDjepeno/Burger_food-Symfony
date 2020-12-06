@@ -47,7 +47,7 @@ class Customer implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Email(mesage="veuillez renseigner un email valide !")
+     * @Assert\Email(message="veuillez renseigner un email valide !")
      */
     private $email;
 
@@ -69,6 +69,10 @@ class Customer implements UserInterface
             $slugify = new Slugify();
             $this->slug = $slugify->slugify($this->username);
         }
+        if($this->roles === null){
+            $this->roles = "ROLE_USER";
+        }
+        
     }
 
     /**
@@ -134,14 +138,19 @@ class Customer implements UserInterface
         return $this;
     }
 
-    public function getRoles(): ?array
+    public function getRoles(): array
     {
         return [$this->roles];
+      
     }
 
-    public function setRoles(string $roles): self
+    public function setRoles(?string $roles): self
     {
-        $this->roles = $roles;
+        if($roles === null){
+            $this->roles = "ROLE_USER";
+        }else{
+            $this->roles = $roles;
+        }
 
         return $this;
     }

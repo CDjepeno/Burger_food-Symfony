@@ -26,14 +26,13 @@ class AppFixtures extends Fixture
         $faker     = Factory::create('FR-fr');
 
         // Nous gérons les utilisateurs
-        $users=[];
+        $users  = [];
         $genres = ['male','female'];
         for ($i=1; $i<=10; $i++) {
-            $user = new Customer;
 
+            $user      = new Customer;
             $genre     = $faker->randomElement($genres);
-          
-            $hash = $this->encoder->encodePassword($user, 'password');
+            $hash      = $this->encoder->encodePassword($user, 'password');
 
             $user->setUserName($faker->firstname($genre))
                  ->setSlug(strtolower($this->slugger->slug($user->getUsername())))
@@ -43,7 +42,7 @@ class AppFixtures extends Fixture
 
             $manager->persist($user);
 
-            $users[]= $user;
+            $users[] = $user;
         }
 
         // Nous gérons les catégory
@@ -61,7 +60,7 @@ class AppFixtures extends Fixture
                     $title           = $faker->sentence(2);
                     $backgroundColor = trim($faker->safeHexcolor, '#');
                     $foregroundColor = trim($faker->safeHexcolor, '#');
-                    $imageProduct       = "https://dummyimage.com/600x400/" . $backgroundColor . "/". $foregroundColor ."&text=" . "produit" ;
+                    $imageProduct    = "https://dummyimage.com/600x400/" . $backgroundColor . "/". $foregroundColor ."&text=" . "produit" ;
                     $imageP          = "https://dummyimage.com/600x400/" . $backgroundColor . "/". $foregroundColor ."&text=" . "photos appartement" ;
                     $content         =  $faker->sentence(5);
                     

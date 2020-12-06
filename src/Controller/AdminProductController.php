@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminProductController extends AbstractController
@@ -17,6 +18,7 @@ class AdminProductController extends AbstractController
      * Permet d'afficher tous les produits
      * 
      * @Route("/admin/products", name="admin_products")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'avez pas le droit d'acceder à cette ressource")
      * 
      * @param ProductRepository $products
      * 
@@ -34,6 +36,7 @@ class AdminProductController extends AbstractController
      *
      * @Route("/admin/add", name="admin_add")
      * @Route("/admin/update/{slug}", name="admin_update")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'avez pas le droit d'acceder à cette ressource")
      * 
      * @param Product $product
      * @param EntityManagerInterface $em
@@ -73,7 +76,8 @@ class AdminProductController extends AbstractController
     /**
      * Permet de supprimer un produit
      * 
-     * @Route("/delete/{slug}", name="admin_delete_product", methods="sup")
+     * @Route("/admin/delete/{slug}", name="admin_delete_product", methods="sup")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'avez pas le droit d'acceder à cette ressource")
      *
      * @param Request $request
      * @param EntityManagerInterface $em

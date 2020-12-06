@@ -7,7 +7,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('home_menus') }}">Acceuil</a></li>
             {% for product in products | slice(1,1) %}
-            <li class="breadcrumb-item"><a href="{{ path('products_drink') }}">{{product.category.name}}</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('product_show', {slug:product.slug}) }}">{{product.category.name}}</a></li>
             {% endfor %}
         </ol>
     </nav>

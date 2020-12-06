@@ -1,7 +1,7 @@
  <nav class="d-flex justify-content-center my-2">
     <ul class="nav nav-pills">
         {% for category in categories.findAll %}
-            <li role="presentation" class="nav-item"><a class="nav-link" href="{{ path('products' , {id:category.id}) }}" data-toggles="tab">{{category.name | upper}}</a></li>
+            <li role="presentation" class="nav-item"><a class="nav-link" href="{{ path('products_category' , {id:category.id}) }}" data-toggles="tab">{{category.name | upper}}</a></li>
         {% endfor %}
      
     </ul>

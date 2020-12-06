@@ -18,9 +18,14 @@ security:
             anonymous: true
             lazy: true
             provider: in_database
-            guard:
-                authenticators:
-                    - App\Security\CustomerAuthenticator
+            # guard:
+            #     authenticators:
+            #         - App\Security\CustomerAuthenticator
+            form_login:
+                login_path: customer_login
+                check_path: customer_login
+                username_parameter: username
+                password_parameter: password
             logout:
                 path: customer_logout
 
@@ -36,5 +41,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

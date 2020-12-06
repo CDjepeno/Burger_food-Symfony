@@ -37,7 +37,6 @@ class RegistrationController extends AbstractController
                     $user->getPassword()
                 )
             );
-            $user->setRoles("ROLE_USER");
 
             $em->persist($user);
             $em->flush();
