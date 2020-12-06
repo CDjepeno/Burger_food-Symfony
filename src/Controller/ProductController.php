@@ -12,31 +12,19 @@ class ProductController extends AbstractController
 {
    
     /**
-     * Permet de récupérer tous les burgers
+     * Permet de récupérer tous les produits d'une categorie
      * 
-     * @Route("/products-burger/", name="products_burger")
-     * 
-     * @return Response
-     */
-    public function burgers(ProductRepository $product): Response
-    {
-        return $this->render('product/products_cat.html.twig', [
-            'products' => $product->getProductsByBurger(),
-        ]);
-    }
-    /**
-     * Permet de récupérer tous les snacks
-     * 
-     * @Route("/products-snack/", name="products_snack")
+     * @Route("/products/{id}", name="products")
      * 
      * @return Response
      */
-    public function snacks(ProductRepository $product): Response
+    public function burgers(ProductRepository $product,$id): Response
     {
         return $this->render('product/products_cat.html.twig', [
-            'products' => $product->getProductsBySnack(),
+            'products' => $product->getProductByCategory($id),
         ]);
     }
+    
     /**
      * Permet de récupérer toutes les salades
      * 

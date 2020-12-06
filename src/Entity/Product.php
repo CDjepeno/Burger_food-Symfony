@@ -33,7 +33,7 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(max=20, maxMessage="Votre nom de produit doit faire pas plus de 20 caractère")
+     * @Assert\Length(min=5,max=20, maxMessage="Votre nom de produit doit faire pas plus de 20 caractère", minMessage="Votre nom de produit doit faire au moins 5 caractères")
      */
     private $name;
 
@@ -45,6 +45,7 @@ class Product
 
     /**
      * @ORM\Column(type="text", length=255)
+     * @Assert\Length(min=5,max=30, maxMessage="Votre description doit faire pas plus de 30 caractère", minMessage="Votre description doit faire au moins 5 caractères")
      */
     private $description;
 
