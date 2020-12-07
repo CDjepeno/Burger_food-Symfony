@@ -11,6 +11,13 @@
         <div class="container">
             <h1 class="text-logo text-center py-3">Burger Food</h1>
             {% include "partials/_navbarProducts.html.Twig" %}
+            {% for rubrique, messages in app.flashes %}
+                <div class="alert alert-{{rubrique}}">
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
             {% block body %}{% endblock %}
         </div>
         {{ encore_entry_script_tags('js/app') }}
