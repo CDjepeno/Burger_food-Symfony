@@ -26,6 +26,11 @@ class CartService {
         return $this->session->set("cart",$cart);
     }
 
+    public function empty()
+    {
+        $this->saveCart([]);
+    }
+
     /**
      * Permet d'ajouter un produit au panier
      *

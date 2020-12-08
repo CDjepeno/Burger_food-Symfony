@@ -61,6 +61,11 @@ class Purchase
      */
     private $purchaseItems;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $fullname;
+
    
 
     public function __construct()
@@ -183,6 +188,18 @@ class Purchase
                 $purchaseItem->setPurchase(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFullname(): ?string
+    {
+        return $this->fullname;
+    }
+
+    public function setFullname(string $fullname): self
+    {
+        $this->fullname = $fullname;
 
         return $this;
     }

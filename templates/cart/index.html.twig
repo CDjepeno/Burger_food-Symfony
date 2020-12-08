@@ -37,11 +37,17 @@
                 </tr>
             </tfoot>
         </table>
-        <h2 class="mt-5">Confirmé votre commande en remplissant ce formulaire !</h2>
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary">Commander</button>
-        {{ form_end(form) }}
+        {% if app.user %}
+            <h2 class="mt-5">Confirmé votre commande en remplissant ce formulaire !</h2>
+            {{ form_start(form, {"action": path("purchase_confirm") }) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary">Commander</button>
+            {{ form_end(form) }}
+        {% else %}
+            <h2>Vous devez être connecté pour confirmer cette commande</h2>
+            <a href="{{ path("customer_login") }}" class="btn btn-success">Connexion</a>
+            ou <a href="{{ path("customer_register") }}" class="btn btn-warnig">créez un compte</a>
+        {% endif %}
     {% else %}
     <div class="alert alert-primary">
         <h2 class="my-5 text-center">Votre panier est vide !!!!</h2>

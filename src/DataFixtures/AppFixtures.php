@@ -91,6 +91,7 @@ class AppFixtures extends Fixture
                         $purchase ->setAdress($faker->streetAddress)
                                   ->setPostalCode(mt_rand(75000,75020))
                                   ->setCity($faker->city)
+                                  ->setFullname($customer->getUsername())
                                   ->setAmount(mt_rand(10,80))
                                   ->setPurchaseAt($faker->dateTimeBetween("-6 month"))
                                   ->setCustomer($customer);
@@ -101,7 +102,6 @@ class AppFixtures extends Fixture
                                 $purchaseItem = new PurchaseItem;
                                 $purchaseItem ->setProduct($product)
                                               ->setQuantity(mt_rand(1,3))
-                                              ->setFullname($customer->getUsername())
                                               ->setProductName($product->getName())
                                               ->setProductPrice($product->getPrice())
                                               ->setAmount(

@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Purchase;
 use App\Form\ApplicationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,8 +17,8 @@ class CartConfirmationType extends ApplicationType
         $builder
             ->add('fullname', TextType::class, $this->getConfiguration("Nom complet","Nom complet pour la livraison") )
             ->add('adress', TextareaType::class, $this->getConfiguration("Adresse","Adresse pour la livraison") )
-            ->add('postaleCode', TextareaType::class, $this->getConfiguration("Code postal","Code postal pour la livraison") )
-            ->add('postaleCode', TextType::class, $this->getConfiguration("Ville","Ville pour la livraison") )
+            ->add('postalCode', TextareaType::class, $this->getConfiguration("Code postal","Code postal pour la livraison") )
+            ->add('city', TextType::class, $this->getConfiguration("Ville","Ville pour la livraison") )
         ;
     }
 
@@ -25,6 +26,7 @@ class CartConfirmationType extends ApplicationType
     {
         $resolver->setDefaults([
             // Configure your form options here
+            'data_class' => Purchase::class
         ]);
     }
 }
