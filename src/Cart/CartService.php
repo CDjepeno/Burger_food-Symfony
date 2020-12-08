@@ -32,7 +32,6 @@ class CartService {
      * @param integer $id
      * 
      * @return void
-     * 
      */
     public function add(int $id): void
     {
@@ -122,11 +121,12 @@ class CartService {
             return;
         }
 
+        // Si le produit est à 1 dans notre panier ont le supprime
         if($cart[$id] === 1) {
             $this->remove($id);
             return;
         }
-
+        //  Sinon de décrémenter de 1
         $cart[$id]--;
 
         $this->saveCart($cart);

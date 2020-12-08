@@ -6,10 +6,12 @@ use Faker\Factory;
 use App\Entity\Product;
 use App\Entity\Category;
 use App\Entity\Customer;
+use App\Entity\Purchase;
+use App\Entity\PurchaseItem;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
@@ -45,6 +47,8 @@ class AppFixtures extends Fixture
             $users[] = $user;
         }
 
+        $products = [];
+
         // Nous gérons les catégory
         $categories = ['burger','snack','salade','dessert','menu','drink'];
             foreach ($categories as $cat) {
@@ -73,28 +77,48 @@ class AppFixtures extends Fixture
                         ->setPrice(mt_rand(5, 15))
                         ->setCategory($category)
                         ->setSlug(strtolower($this->slugger->slug($product->getName())));
+
+                    $products[]= $product;
+
                     $manager->persist($product);
-
-                    // Gestions des commandes.
-                    // for($r=1; $r <= mt_rand(0, 10); $r++) {
-                    //     $order = new Order();
-
-                    //     $order = new Orderdetails();
-
-                    //     $createdAt = $faker->dateTimeBetween('-6 months');
-                      
-                    //     $amount    = $car->getPrice() * $duration;
-
-                    //     $booker    = $users[mt_rand(0,count($users) -1)];
-
-                    //     $order->setCreatedAt($createdAt)
-                    //             ->setAmount($amount)
-                    //             ->setCustomer($booker)
-                    //             ->setProduct($product);
-
-                    //     $manager->persist($order);
-                    // }
                 }
+                //  Gestions des commandes.
+                    for($r=1; $r <= mt_rand(0, 10); $r++) {
+                        $purchase = new Purchase();
+                      
+                        $customer = $users[mt_rand(0,count($users) -1)];
+
+                        $purchase ->setAdress($faker->streetAddress)
+                                  ->setPostalCode(mt_rand(75000,75020))
+                                  ->setCity($faker->city)
+                                  ->setAmount(mt_rand(10,80))
+                                  ->setPurchaseAt($faker->dateTimeBetween("-6 month"))
+                                  ->setCustomer($customer);
+
+                            $selectedProducts = $faker->randomElements($products, mt_rand(3 , 4));
+
+                            foreach($selectedProducts as $product) {
+                                $purchaseItem = new PurchaseItem;
+                                $purchaseItem ->setProduct($product)
+                                              ->setQuantity(mt_rand(1,3))
+                                              ->setFullname($customer->getUsername())
+                                              ->setProductName($product->getName())
+                                              ->setProductPrice($product->getPrice())
+                                              ->setAmount(
+                                                  $purchaseItem->getProductPrice() * $purchaseItem->getQuantity()
+                                                )
+                                              ->setPurchase($purchase);
+
+                                $manager->persist($purchaseItem);
+
+                            }
+
+                              if($faker->boolean(70)){
+                                  $purchase->setStatus(Purchase::STATUS_PAID);
+
+                              }
+                        $manager->persist($purchase);
+                    }
             }   
         $manager->flush();
     }

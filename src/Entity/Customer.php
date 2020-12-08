@@ -56,6 +56,17 @@ class Customer implements UserInterface
      */
     private $roles;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Purchase::class, mappedBy="customer")
+     */
+    private $purchases;
+
+    public function __construct()
+    {
+        $this->purchases = new ArrayCollection();
+    }
+
+    
      /**
      * Permet d'initialiser le slug lors de l'insertion et la modification dans la base de donnée
      * 
@@ -73,16 +84,6 @@ class Customer implements UserInterface
             $this->roles = "ROLE_USER";
         }
         
-    }
-
-    /**
-     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="customer")
-     */
-    private $orders;
-
-    public function __construct()
-    {
-        $this->orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -155,38 +156,42 @@ class Customer implements UserInterface
         return $this;
     }
 
+    public function eraseCredentials(){}
+
+    public function getSalt(){}
+
     /**
-     * @return Collection|Order[]
+     * @return Collection|Purchase[]
      */
-    public function getOrders(): Collection
+    public function getPurchases(): Collection
     {
-        return $this->orders;
+        return $this->purchases;
     }
 
-    public function addOrder(Order $order): self
+    public function addPurchase(Purchase $purchase): self
     {
-        if (!$this->orders->contains($order)) {
-            $this->orders[] = $order;
-            $order->setCustomer($this);
+        if (!$this->purchases->contains($purchase)) {
+            $this->purchases[] = $purchase;
+            $purchase->setCustomer($this);
         }
 
         return $this;
     }
 
-    public function removeOrder(Order $order): self
+    public function removePurchase(Purchase $purchase): self
     {
-        if ($this->orders->removeElement($order)) {
+        if ($this->purchases->removeElement($purchase)) {
             // set the owning side to null (unless already changed)
-            if ($order->getCustomer() === $this) {
-                $order->setCustomer(null);
+            if ($purchase->getCustomer() === $this) {
+                $purchase->setCustomer(null);
             }
         }
 
         return $this;
     }
 
-    public function eraseCredentials(){}
 
-    public function getSalt(){}
+
+   
 
 }

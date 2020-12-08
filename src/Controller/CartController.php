@@ -3,13 +3,12 @@
 namespace App\Controller;
 
 use App\Cart\CartService;
+use App\Form\CartConfirmationType;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 class CartController extends AbstractController
 {
@@ -67,9 +66,12 @@ class CartController extends AbstractController
         $detailedCart = $this->cartService->getDetailedCart();
         $total        = $this->cartService->getTotal();
 
+        $form         = $this->createForm(CartConfirmationType::class);
+
         return $this->render("cart/index.html.twig",[
             "items" => $detailedCart,
-            "total" => $total
+            "total" => $total,
+            "form"  => $form->createView()
             
         ]);
     }
@@ -80,7 +82,7 @@ class CartController extends AbstractController
      * @Route("/customer/cart/delete/{id<\d+>}", name="cart_delete")
      *
      */
-    public function delete($id)
+    public function delete(int $id)
     {
         $product = $this->productRepo->find($id);
 
@@ -105,7 +107,7 @@ class CartController extends AbstractController
      * 
      * @return void
      */
-    public function decrement($id)
+    public function decrement(int $id)
     {
         $product = $this->productRepo->find($id);
 

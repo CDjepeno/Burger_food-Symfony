@@ -71,6 +71,18 @@ class Product
     private $slug;
 
     /**
+     * @ORM\OneToMany(targetEntity=PurchaseItem::class, mappedBy="product")
+     */
+    private $purchaseItems;
+
+    
+
+    public function __construct()
+    {
+        $this->purchaseItems = new ArrayCollection();
+    }
+
+    /**
      * Permet d'initailiser le slug !
      * 
      *@ORM\PrePersist
@@ -83,22 +95,6 @@ class Product
             $slugify = new Slugify();
             $this->slug = $slugify->slugify($this->name);
         }
-    }
-
-    /**
-     * @ORM\OneToMany(targetEntity=Orderdetails::class, mappedBy="products")
-     */
-    private $orderdetails;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @var \DateTimeInterface|null
-     */
-    private $updatedAt;
-
-    public function __construct()
-    {
-        $this->orderdetails = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,36 +175,6 @@ class Product
     }
 
     /**
-     * @return Collection|Orderdetails[]
-     */
-    public function getOrderdetails(): Collection
-    {
-        return $this->orderdetails;
-    }
-
-    public function addOrderdetail(Orderdetails $orderdetail): self
-    {
-        if (!$this->orderdetails->contains($orderdetail)) {
-            $this->orderdetails[] = $orderdetail;
-            $orderdetail->setProducts($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrderdetail(Orderdetails $orderdetail): self
-    {
-        if ($this->orderdetails->removeElement($orderdetail)) {
-            // set the owning side to null (unless already changed)
-            if ($orderdetail->getProducts() === $this) {
-                $orderdetail->setProducts(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * Get the value of imageFile
      */ 
     public function getImageFile()
@@ -231,15 +197,36 @@ class Product
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    /**
+     * @return Collection|PurchaseItem[]
+     */
+    public function getPurchaseItems(): Collection
     {
-        return $this->updatedAt;
+        return $this->purchaseItems;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    public function addPurchaseItem(PurchaseItem $purchaseItem): self
     {
-        $this->updatedAt = $updatedAt;
+        if (!$this->purchaseItems->contains($purchaseItem)) {
+            $this->purchaseItems[] = $purchaseItem;
+            $purchaseItem->setProduct($this);
+        }
 
         return $this;
     }
+
+    public function removePurchaseItem(PurchaseItem $purchaseItem): self
+    {
+        if ($this->purchaseItems->removeElement($purchaseItem)) {
+            // set the owning side to null (unless already changed)
+            if ($purchaseItem->getProduct() === $this) {
+                $purchaseItem->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
+
 }

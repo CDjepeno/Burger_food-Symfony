@@ -37,6 +37,11 @@
                 </tr>
             </tfoot>
         </table>
+        <h2 class="mt-5">Confirmé votre commande en remplissant ce formulaire !</h2>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Commander</button>
+        {{ form_end(form) }}
     {% else %}
     <div class="alert alert-primary">
         <h2 class="my-5 text-center">Votre panier est vide !!!!</h2>
