@@ -35,11 +35,9 @@
 					</div>
 				</li>
 			{% endif %}
-			{% if app.user %}
-				<li class="nav-item">	
-					<a class="nav-link" id="cart" href="{{ path("cart_show") }}"><i class="fi-xwsuhl-shopping-cart-solid"></i>Panier {{ cartService.total }}&euro;</a>
-				</li>
-			{% endif %}
+			<li class="nav-item">	
+				<a class="nav-link" id="cart" href="{{ path("cart_show") }}"><i class="fi-xwsuhl-shopping-cart-solid"></i>Panier {{ cartService.total }}&euro;</a>
+			</li>
 		</ul>
 
 

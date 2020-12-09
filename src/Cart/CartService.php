@@ -75,7 +75,7 @@ class CartService {
     /**
      * Permet d'avoir le detail du panier
      *
-     * @return array
+     * @return CartItem[]
      */
     public function getDetailedCart(): array
     {
