@@ -39,9 +39,9 @@
         </table>
         {% if app.user %}
             <h2 class="mt-5">Confirmé votre commande en remplissant ce formulaire !</h2>
-            {{ form_start(form, {"action": path("purchase_confirm") }) }}
+            {{ form_start(form, {"action": path("purchase_confirm")}) }}
             {{ form_widget(form) }}
-            <button type="submit" class="btn btn-primary">je confirme !</button>
+            <button type="submit" class="btn btn-primary mb-5">je confirme !</button>
             {{ form_end(form) }}
         {% else %}
             <h2>Vous devez être connecté pour confirmer cette commande</h2>

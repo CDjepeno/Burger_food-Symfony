@@ -1,14 +1,13 @@
-"Use strict"
-let $ = require('jquery');
+"use strict";
+"Use strict";
+
+var $ = require('jquery');
 
 global.$ = global.jQuery = $;
 
-require('bootstrap');
-// require('Stripe');
-
+require('bootstrap'); // require('Stripe');
 // const stripe = Stripe(stripePublickey);
 // const elements = stripe.elements();
-
 // const card = elements.create("card");
 // // Stripe injects an iframe into the DOM
 // card.mount("#card-element");
@@ -17,9 +16,7 @@ require('bootstrap');
 //     document.querySelector("button").disabled = event.empty;
 //     document.querySelector("#card-error").textContent = event.error ? event.error.message : "";
 // });
-
 // const form = document.getElementById("payment-form");
-
 // form.addEventListener("submit", function(event) {
 //     event.preventDefault();
 //     // Complete payment when the submit button is clicked
