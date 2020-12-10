@@ -52,4 +52,27 @@ class PurchasePaymentSuccessController extends AbstractController
 
         return $this->redirectToRoute("purchase_index");
     }
+
+    /**
+     * Permet d'afficher la page d'erreur
+     * 
+     * @Route("/puchase/error", name="error")
+     *
+     * @return void
+     */
+    public function error()
+    {
+
+    }
+    /**
+     * Permet d'afficher la page d'erreur
+     * 
+     * @Route("/puchase/error", name="success")
+     *
+     * @return void
+     */
+    public function su()
+    {
+
+    }
 }

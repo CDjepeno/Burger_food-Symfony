@@ -39,10 +39,10 @@
         </table>
         {% if app.user %}
             <h2 class="mt-5">Confirmé votre commande en remplissant ce formulaire !</h2>
-            {{ form_start(form, {"action": path("purchase_confirm")}) }}
+            {{ form_start(form) }}
             {{ form_widget(form) }}
-            <button type="submit" class="btn btn-primary mb-5">je confirme !</button>
             {{ form_end(form) }}
+            <button type="submit" id="checkout-button" class="btn btn-primary mb-5">je confirme !</button>
         {% else %}
             <h2>Vous devez être connecté pour confirmer cette commande</h2>
             <a href="{{ path("customer_login") }}" class="btn btn-success">Connexion</a>
@@ -53,4 +53,37 @@
         <h2 class="my-5 text-center">Votre panier est vide !!!!</h2>
     </div>
     {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript">
+      // Create an instance of the Stripe object with your publishable API key
+      var stripe = Stripe('pk_test_51HwK6oJzFZT0NUHQ4iYs7wc311fhhmF6OW4dGZIFfCsrdeVv2huzYcnBomC5YKoYtK9S4Ux480lzDJqUgxBT4yiX00PDkLf4X2');
+      var checkoutButton = document.getElementById('checkout-button');
+
+      checkoutButton.addEventListener('click', function() {
+        // Create a new Checkout Session using the server-side endpoint you
+        // created in step 3.
+        fetch('{{ url("purchase_payement_success", {'id':id}) }}', {
+          method: 'POST',
+        })
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(session) {
+          return stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .then(function(result) {
+          // If `redirectToCheckout` fails due to a browser or network
+          // error, you should display the localized error message to your
+          // customer using `error.message`.
+          if (result.error) {
+            alert(result.error.message);
+          }
+        })
+        .catch(function(error) {
+          console.error('Error:', error);
+        });
+      });
+    </script>
 {% endblock %}
