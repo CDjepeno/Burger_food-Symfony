@@ -7,48 +7,35 @@
 {% block body %}
 	<h1>Payer votre commande</h1>
     <div class="alert alert-primary">
-        <form id="payment-form">
-            <div id="card-element"><!--Stripe.js injects the Card Element--></div>
-            <button id="submit" class="btn btn-success mt-3">
-                <div class="spinner hidden" id="spinner"></div>
-                <span id="checkout-button">Payer votre commande</span>
-            </button>
-            <p id="card-error" role="alert"></p>
-	    </form>
+        <button id="checkout-button" class="btn btn-success my-3">Payer {{purchase.amount}}&euro;</button>      
     </div>
 {% endblock %}
-
 {% block javascripts %}
 	{{ parent() }}
 	<script src="https://js.stripe.com/v3/"></script>
 	<script type="text/javascript">
-      // Create an instance of the Stripe object with your publishable API key
-      var stripe = Stripe('pk_test_51HwK6oJzFZT0NUHQ4iYs7wc311fhhmF6OW4dGZIFfCsrdeVv2huzYcnBomC5YKoYtK9S4Ux480lzDJqUgxBT4yiX00PDkLf4X2');
-      var checkoutButton = document.getElementById('checkout-button');
+        // Create an instance of the Stripe object with your publishable API key
+        var stripe = Stripe('{{publicKey}}');
+        var checkoutButton = document.getElementById('checkout-button');
 
-      checkoutButton.addEventListener('click', function() {
-        // Create a new Checkout Session using the server-side endpoint you
-        // created in step 3.
-        fetch('{{ url("purchase_payement_success", {'id':purchase.id}) }}', {
-          method: 'POST',
-        })
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(session) {
-          return stripe.redirectToCheckout({ sessionId: session.id });
-        })
-        .then(function(result) {
-          // If `redirectToCheckout` fails due to a browser or network
-          // error, you should display the localized error message to your
-          // customer using `error.message`.
-          if (result.error) {
-            alert(result.error.message);
-          }
-        })
-        .catch(function(error) {
-          console.error('Error:', error);
+        checkoutButton.addEventListener('click', function() {
+            fetch('{{ url("purchase_pay", {'id':purchase.id}) }}', {
+            method: 'POST',
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(session) {
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(function(result) {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
         });
-      });
     </script>
 {% endblock %}

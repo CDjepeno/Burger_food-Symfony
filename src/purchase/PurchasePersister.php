@@ -17,9 +17,9 @@ class PurchasePersister
 
     public function __construct(Security $security, CartService $cartService, EntityManagerInterface $manager)
     {
-        $this->security = $security;
         $this->cartService = $cartService;
-        $this->manager = $manager;
+        $this->security    = $security;
+        $this->manager     = $manager;
     }
 
     public function storePurchase(Purchase $purchase)

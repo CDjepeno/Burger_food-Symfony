@@ -4,6 +4,7 @@ namespace App\Controller\Purchase;
 
 use App\Entity\Purchase;
 use App\Cart\CartService;
+use App\purchase\PurchasePersister;
 use App\Repository\PurchaseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,7 @@ class PurchasePaymentSuccessController extends AbstractController
     /**
      * Permet de valider un paiement
      *
-     * @Route("/purchase/terminate/{id}", name="purchase_payement_success")
+     * @Route("/purchase/terminate/{id}", name="success")
      * @IsGranted("ROLE_USER");
      * 
      * @return Response
@@ -39,9 +40,11 @@ class PurchasePaymentSuccessController extends AbstractController
             }
         // 2. Je fait passer au status PAYEE (PAID)
         $purchase->setStatus(Purchase::STATUS_PAID);
-        $em->flush();
-        // 3. Je vide le panier
 
+        // Ont persiste dans la purchase  
+        $em->flush();
+
+        // 3. Je vide le panier
         $cartService->empty();
 
         // 4. Je redirige avec un flash vers la liste des commandes
@@ -56,23 +59,13 @@ class PurchasePaymentSuccessController extends AbstractController
     /**
      * Permet d'afficher la page d'erreur
      * 
-     * @Route("/puchase/error", name="error")
+     * @Route("/purchase/error", name="error")
      *
      * @return void
      */
     public function error()
     {
-
+        return $this->render("purchase/error.html.twig");
     }
-    /**
-     * Permet d'afficher la page d'erreur
-     * 
-     * @Route("/puchase/error", name="success")
-     *
-     * @return void
-     */
-    public function su()
-    {
 
-    }
 }

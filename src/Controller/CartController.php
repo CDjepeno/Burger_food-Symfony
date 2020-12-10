@@ -55,7 +55,7 @@ class CartController extends AbstractController
     }
 
     /**
-     * Permet d'afficher le panier
+     * Permet d'afficher le panier et le formulaire de validation
      *
      * @Route("/customer/cart", name="cart_show")
      * 

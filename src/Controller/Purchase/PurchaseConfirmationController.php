@@ -1,10 +1,8 @@
 <?php
 namespace App\Controller\Purchase;
 
-use DateTime;
 use App\Entity\Purchase;
 use App\Cart\CartService;
-use App\Entity\PurchaseItem;
 use App\Form\CartConfirmationType;
 use App\purchase\PurchasePersister;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,18 +15,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PurchaseConfirmationController extends AbstractController
 {
     protected $cartService;
-    protected $manager;
     protected $persister;
-
+    protected $manager;
+    
     public function __construct(CartService $cartService, EntityManagerInterface $manager, PurchasePersister $persister )
     {
         $this->cartService = $cartService; 
-        $this->manager = $manager; 
-        $this->persister = $persister; 
+        $this->manager     = $manager; 
+        $this->persister   = $persister;  
     }
     
     /**
-     * Permet de gérer le forumulaire de commande
+     * Permet de gérer le formulaire de commande
      * 
      * @Route("/purchase/confirm", name="purchase_confirm")
      * @IsGranted("ROLE_USER", message="vous devez être connecté pour confirmer votre commande")
@@ -37,20 +35,7 @@ class PurchaseConfirmationController extends AbstractController
      */
     public function confirm(Request $request): Response
     {
-        $form = $this->createForm(CartConfirmationType::class);
-
-        $form->handleRequest($request);
-        if(!$form->isSubmitted()){
-            $this->addFlash(
-                "warning",
-                "Vous devez remplir le formulaire de confirmation"
-            );
-
-            return $this->redirectToRoute("cart_show");
-        }
-
-        $customer = $this->getUser();
-
+        $form      = $this->createForm(CartConfirmationType::class);
         $cartItems = $this->cartService->getDetailedCart();
 
         if(count($cartItems) === 0){
@@ -58,18 +43,19 @@ class PurchaseConfirmationController extends AbstractController
                 "warning",
                 "Vous ne pouvez confirmer une commande avec un panier vide"
             );
-
             return $this->redirectToRoute("cart_show");
         }
+
+        $form->handleRequest($request);
 
         /** @var Purchase */
         $purchase = $form->getData();
 
         $this->persister->storePurchase($purchase);
-
-        return $this->redirectToRoute('purchase_payment_form',[
-            "id" => $purchase->getId(),
-        ]);    
+    
+        return $this->render("purchase/payment.html.twig",[
+            "purchase" => $purchase
+        ]);
     }
     
 }
