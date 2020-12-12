@@ -66,26 +66,6 @@ class Customer implements UserInterface
         $this->purchases = new ArrayCollection();
     }
 
-    
-     /**
-     * Permet d'initialiser le slug lors de l'insertion et la modification dans la base de donnée
-     * 
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     *
-     * @return slug
-     */
-    // public function initializeSlug() {
-    //     if(empty($this->slug)) {
-    //         $slugify = new Slugify();
-    //         $this->slug = $slugify->slugify($this->username);
-    //     }
-    //     if($this->roles === null){
-    //         $this->roles = "ROLE_USER";
-    //     }
-        
-    // }
-
     public function getId(): ?int
     {
         return $this->id;
