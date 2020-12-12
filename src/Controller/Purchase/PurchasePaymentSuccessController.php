@@ -4,6 +4,7 @@ namespace App\Controller\Purchase;
 
 use App\Entity\Purchase;
 use App\Cart\CartService;
+use App\Event\PurchaseSuccessEvent;
 use App\purchase\PurchasePersister;
 use App\Repository\PurchaseRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PurchasePaymentSuccessController extends AbstractController
 {
@@ -22,7 +24,7 @@ class PurchasePaymentSuccessController extends AbstractController
      * 
      * @return Response
      */
-    public function success($id, PurchaseRepository $purchaseRepository, EntityManagerInterface $em, CartService $cartService)
+    public function success($id, PurchaseRepository $purchaseRepository, EntityManagerInterface $em, CartService $cartService, EventDispatcherInterface $dispatcher)
     {
         // 1. Je récupère la commande
         $purchase = $purchaseRepository->find($id);
@@ -46,6 +48,11 @@ class PurchasePaymentSuccessController extends AbstractController
 
         // 3. Je vide le panier
         $cartService->empty();
+
+        // Ont lance un évènement qui permet aux autres dev de réagir à la prise d'une commande  
+        $purchaseEvent = new PurchaseSuccessEvent($purchase);
+
+        $dispatcher->dispatch($purchaseEvent,"purchase.success");
 
         // 4. Je redirige avec un flash vers la liste des commandes
         $this->addFlash(
