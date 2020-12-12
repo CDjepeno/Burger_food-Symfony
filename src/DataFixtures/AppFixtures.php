@@ -26,6 +26,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker     = Factory::create('FR-fr');
+        $faker->addProvider(new \Bluemmb\Faker\PicsumPhotosProvider($faker));
 
         // Nous gérons les utilisateurs
         $users  = [];
@@ -65,14 +66,14 @@ class AppFixtures extends Fixture
                     $backgroundColor = trim($faker->safeHexcolor, '#');
                     $foregroundColor = trim($faker->safeHexcolor, '#');
                     $imageProduct    = "https://dummyimage.com/600x400/" . $backgroundColor . "/". $foregroundColor ."&text=" . "produit" ;
-                    $imageP          = "https://dummyimage.com/600x400/" . $backgroundColor . "/". $foregroundColor ."&text=" . "photos appartement" ;
+                    $imageP          = "https://picsum.photos/400/300";
                     $content         =  $faker->sentence(5);
                     
                     // Ont met le -1 car ont commence a 0
                     $user = $users[mt_rand(0, count($users) -1)];
 
                     $product->setName($title)
-                        ->setImage($imageProduct)
+                        ->setImage($faker->imageUrl(400,400, true))
                         ->setDescription($content)
                         ->setPrice(mt_rand(5, 15))
                         ->setCategory($category);

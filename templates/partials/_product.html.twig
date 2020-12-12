@@ -1,6 +1,7 @@
 <div class="col-sm-6 col-md-4">
     <div class="card bg-ligth mb-4">
-        <a href="{{ path("product_show", {slug : product.slug}) }}"><img src="{{ asset("build/images/" ~ product.image) }}" alt="{{ product.name }}" class="img-card"></a>
+        {# <a href="{{ path("product_show", {slug : product.slug}) }}"><img src="{{ asset("build/images/" ~ product.image) }}" alt="{{ product.name }}" class="img-card"></a> #}
+        <a href="{{ path("product_show", {slug : product.slug}) }}"><img src="{{ product.image }}" alt="{{ product.name }}" class="img-card"></a>
         <div class="price">{{ product.price }}&euro;</div>
         <div class="caption">
             <h3 class="p-2">{{ product.name }}</h3>
