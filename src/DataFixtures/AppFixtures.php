@@ -37,7 +37,7 @@ class AppFixtures extends Fixture
             $hash      = $this->encoder->encodePassword($user, 'password');
 
             $user->setUserName($faker->firstname($genre))
-                 ->setSlug(strtolower($this->slugger->slug($user->getUsername())))
+                //  ->setSlug(strtolower($this->slugger->slug($user->getUsername())))
                  ->setEmail($faker->email)
                  ->setPassword($hash)
                  ->setRoles("ROLE_USER");
@@ -75,8 +75,7 @@ class AppFixtures extends Fixture
                         ->setImage($imageProduct)
                         ->setDescription($content)
                         ->setPrice(mt_rand(5, 15))
-                        ->setCategory($category)
-                        ->setSlug(strtolower($this->slugger->slug($product->getName())));
+                        ->setCategory($category);
 
                     $products[]= $product;
 

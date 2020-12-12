@@ -75,16 +75,16 @@ class Customer implements UserInterface
      *
      * @return slug
      */
-    public function initializeSlug() {
-        if(empty($this->slug)) {
-            $slugify = new Slugify();
-            $this->slug = $slugify->slugify($this->username);
-        }
-        if($this->roles === null){
-            $this->roles = "ROLE_USER";
-        }
+    // public function initializeSlug() {
+    //     if(empty($this->slug)) {
+    //         $slugify = new Slugify();
+    //         $this->slug = $slugify->slugify($this->username);
+    //     }
+    //     if($this->roles === null){
+    //         $this->roles = "ROLE_USER";
+    //     }
         
-    }
+    // }
 
     public function getId(): ?int
     {

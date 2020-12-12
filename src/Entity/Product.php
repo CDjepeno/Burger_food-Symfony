@@ -83,19 +83,19 @@ class Product
     }
 
     /**
-     * Permet d'initailiser le slug !
+     * Permet d'initialiser le slug !
      * 
      *@ORM\PrePersist
      *@ORM\PreUpdate
-     * @return Slug
+     * @return Void
      */
-    public function createSlug()
-    {
-        if(empty($this->slug)) {
-            $slugify = new Slugify();
-            $this->slug = $slugify->slugify($this->name);
-        }
-    }
+    // public function createSlug()
+    // {
+    //     if(empty($this->slug)) {
+    //         $slugify = new Slugify();
+    //         $this->slug = $slugify->slugify($this->name);
+    //     }
+    // }
 
     public function getId(): ?int
     {

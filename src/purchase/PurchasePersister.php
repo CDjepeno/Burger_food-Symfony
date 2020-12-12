@@ -24,9 +24,7 @@ class PurchasePersister
 
     public function storePurchase(Purchase $purchase)
     {
-        $purchase->setCustomer($this->security->getUser())
-                 ->setPurchaseAt(new DateTime())
-                 ->setAmount($this->cartService->getTotal());
+        $purchase->setCustomer($this->security->getUser());
 
         $this->manager->persist($purchase);
 
@@ -37,7 +35,7 @@ class PurchasePersister
                           ->setProductName($cartItem->product->getName())
                           ->setProductPrice($cartItem->product->getPrice())
                           ->setQuantity($cartItem->quantity)
-                          ->setAmount($this->cartService->getTotal());
+                          ->setAmount($cartItem->Total());
                           
             $this->manager->persist($purchaseItem);
         }

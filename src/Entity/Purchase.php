@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\PurchaseRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PurchaseRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=PurchaseRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Purchase
 {
@@ -58,6 +60,7 @@ class Purchase
 
     /**
      * @ORM\OneToMany(targetEntity=PurchaseItem::class, mappedBy="purchase", orphanRemoval=true)
+     * @var Collection<PurchaseItem>
      */
     private $purchaseItems;
 
@@ -66,11 +69,37 @@ class Purchase
      */
     private $fullname;
 
-   
-
     public function __construct()
     {
         $this->purchaseItems = new ArrayCollection();
+    }
+
+    /**
+     * Permet de faire certaine chose avant de persister la purchase
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     *
+     */
+    public function prePersist()
+    {
+        if(empty($this->purchaseAt)){
+            $this->purchaseAt = new DateTime();
+        }
+    }
+
+    /**
+     * @ORM\PreFlush
+     */
+    public function preFlush()
+    {
+        $total = 0;
+
+        foreach($this->purchaseItems as $item) {
+            $total += $item->getAmount();
+        }
+
+        $this->amount = $total;
     }
 
     public function getId(): ?int
