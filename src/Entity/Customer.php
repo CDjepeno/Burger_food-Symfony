@@ -66,6 +66,22 @@ class Customer implements UserInterface
         $this->purchases = new ArrayCollection();
     }
 
+    /**
+     * Calcule le prix total des commandes de chaque customer
+     *
+     * @return Float
+     */
+    public function totalpurchase(): Float
+    {
+        $total     = 0;
+        $purchases = $this->getPurchases();
+
+        foreach($purchases as $purchase){
+            $total += $purchase->getAmount();
+        }
+        return $total;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

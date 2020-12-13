@@ -55,4 +55,19 @@ class AdminCustomerController extends AbstractController
             return $this->redirectToRoute('admin_customers');
         }
     }
+
+    /**
+     * Permet d'affichger la liste des commandes d'un clients
+     * 
+     * @Route("admin/purchases/{slug}", name="admin_purchase")
+     */
+    public function purchase(Customer $customer)
+    {
+        
+        return $this->render("purchase/index.html.twig",[
+            "purchases"      => $customer->getPurchases(), 
+            "username"       => $customer->getUsername(),
+            "total_purchase" => $customer->totalpurchase()
+        ]);
+    }
 }

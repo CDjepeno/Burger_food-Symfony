@@ -3,8 +3,12 @@
 {% block title %}Commandes{% endblock %}
 
 {% block body %}
-<h2>Mes commandes</h2>
-<table class="table bg-white">
+{% if app.user.username == username %}
+    <h2>Mes commandes</h2>
+{% else %}
+    <h2>Les commandes de {{username}} </h2>
+{% endif %}
+<table class="table bg-white mb-5">
     <thead>
         <tr>
             <th>Numéro</th>
@@ -31,6 +35,12 @@
             </tr>
         {% endfor %}
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4">Total</td>
+            <td colspan="3">{{total_purchase | amount}}</td>
+        </tr>
+    </tfoot>
 </table>
     
 {% endblock %}

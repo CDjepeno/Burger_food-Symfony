@@ -28,9 +28,9 @@
             <tr>
                 <td>{{customer.username}}</td>
                 <td>{{customer.email}}</td>
-                <td>{{customer.orders | length}}</td>
+                <td>{{customer.purchases | length}}</td>
                 <td>
-                    <a href="#" class="btn btn-success"><i class="fi-xwluxl-eye-wide"></i></a> 
+                    <a href="{{ path("admin_purchase", {slug:customer.slug}) }}" class="btn btn-success"><i class="fi-xwluxl-eye-wide"></i></a> 
                     <form method="POST" style="display:inline-block" action="{{ path('admin_delete_customer', {id:customer.id}) }}" onsubmit="return confirm('Confirmer la suppression')">
                         <input type="hidden" name="_method" value="delete">
                         <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ customer.id)}}">
