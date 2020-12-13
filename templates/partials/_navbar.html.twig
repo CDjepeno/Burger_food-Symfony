@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-primary">
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<form class="form-inline my-2 my-lg-0 mr-auto">
-			<input class="form-control mr-sm-2" type="search" placeholder="Produit" aria-label="Search">
+		<form class="form-inline my-2 my-lg-0 mr-auto" action="{{ path("product_search") }}" method="post">
+			<input class="form-control mr-sm-2" name="search" type="search" placeholder="Produit" aria-label="Search">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Produit</button>
 		</form>
 		<ul class="navbar-nav pull-right">
@@ -36,7 +36,7 @@
 				</li>
 			{% endif %}
 			<li class="nav-item">	
-				<a class="nav-link" id="cart" href="{{ path("cart_show") }}"><i class="fi-xwsuhl-shopping-cart-solid"></i>Panier {{ cartService.total }}&euro;</a>
+				<a class="nav-link" id="cart" href="{{ path("cart_show") }}"><i class="fi-xwsuhl-shopping-cart-solid"></i>Panier {{ cartService.total | amount }}</a>
 			</li>
 		</ul>
 

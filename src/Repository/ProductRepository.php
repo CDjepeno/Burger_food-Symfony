@@ -51,6 +51,20 @@ class ProductRepository extends ServiceEntityRepository
                     ->getQuery()
                     ->getResult();
     }
+    /**
+     * Permet de récupérer les produits en fonction d'une recherche
+     * 
+     * @return Product[]
+     */
+    public function getProductsBySearch($data)
+    {
+        return $this->createQueryBuilder("p")
+                    ->select("p")
+                    ->where("p.name = :val")
+                    ->setParameter(':val', $data)
+                    ->getQuery()
+                    ->getResult();
+    }
    
 
     // /**

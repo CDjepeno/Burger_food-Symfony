@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProductController extends AbstractController
 {
@@ -42,7 +43,6 @@ class ProductController extends AbstractController
         if(!$product){
             throw $this->createNotFoundException("Le produit demander n'existe pas");
         }
-
          // Ont lance un évènement qui permet aux autres dev de réagir à la prise d'une commande  
         $productEvent = new ProductViewEvent($product);
 
@@ -51,6 +51,25 @@ class ProductController extends AbstractController
         return $this->render('product/show.html.twig',[
             "product" => $product
         ]);
+    }
+
+    /**
+     * Permet de trouver un produit en fonction d'une recherche
+     * 
+     * @Route("/products/search", name="product_search", methods="POST")
+     *
+     * @return Response
+     */
+    public function searchProduct(Request $request, ProductRepository $product): Response
+    {
+        if ($request->getMethod() == Request::METHOD_POST){
+            $data = $request->request->get('search');
+            
+            return $this->render("product/products_search.html.twig",[
+                "products" => $product->getProductsBySearch($data)
+            ]);
+        }
+
     }
 
 
