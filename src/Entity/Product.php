@@ -33,7 +33,7 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5,max=20, maxMessage="Votre nom de produit doit faire pas plus de 20 caractère", minMessage="Votre nom de produit doit faire au moins 5 caractères")
+     * @Assert\Length(min=4,max=20, maxMessage="Votre nom de produit doit faire pas plus de 20 caractère", minMessage="Votre nom de produit doit faire au moins 4 caractères")
      */
     private $name;
 
@@ -45,7 +45,7 @@ class Product
 
     /**
      * @ORM\Column(type="text", length=255)
-     * @Assert\Length(min=5,max=30, maxMessage="Votre description doit faire pas plus de 30 caractère", minMessage="Votre description doit faire au moins 5 caractères")
+     * @Assert\Length(min=5,max=100, maxMessage="Votre description doit faire pas plus de 100 caractère", minMessage="Votre description doit faire au moins 5 caractères")
      */
     private $description;
 
@@ -75,27 +75,11 @@ class Product
      */
     private $purchaseItems;
 
-    
 
     public function __construct()
     {
         $this->purchaseItems = new ArrayCollection();
     }
-
-    /**
-     * Permet d'initialiser le slug !
-     * 
-     *@ORM\PrePersist
-     *@ORM\PreUpdate
-     * @return Void
-     */
-    // public function createSlug()
-    // {
-    //     if(empty($this->slug)) {
-    //         $slugify = new Slugify();
-    //         $this->slug = $slugify->slugify($this->name);
-    //     }
-    // }
 
     public function getId(): ?int
     {

@@ -3,9 +3,10 @@
 {% block title %}Bienvenu chez burger Food{% endblock %}
 
 {% block body %}
-
-    <div class="row my-5">
+    <h2 class="text-center mt-5"><img src="{{ asset("build/images/best-seller-badge.jpg") }}" alt="" id="best_seller"> LES BESTS SELLERS <img src="{{ asset("build/images/best-seller-badge.jpg") }}" alt="" id="best_seller"></h2>
+    <div class="row my-3">
     {% for product in products %}
+        {% set product = product.product %}
         {% include "partials/_product.html.twig" %}
     {% endfor %}
     </div>

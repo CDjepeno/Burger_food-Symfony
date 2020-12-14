@@ -21,18 +21,19 @@ body {
             }
         }
     }
+    #best_seller {
+        height: 7rem;
+    }
     #cart{
         color: white ;
     }
     .card {
 
         .img-card {
-            background : #ffd301;
             width      : 21.6rem;
             height     : 15rem;
 
             &.show {
-                background : #ffd301;
                 width      : 30.5rem;
                 height     : 15rem;
             }

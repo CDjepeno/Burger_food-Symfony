@@ -1,0 +1,46 @@
+body {
+  background-image: url("../images/bg.jpg");
+}
+body h1 {
+  font-size: 4rem;
+  color: #e7480f;
+}
+body h2 {
+  color: #e7480f;
+}
+body .nav a {
+  font-size: 1.2rem;
+}
+body .nav a:hover {
+  background-color: #007BFF;
+  color: #e7480f;
+}
+body #best_seller {
+  width: 5rem;
+  height: 3rem;
+}
+body #cart {
+  color: white;
+}
+body .card .img-card {
+  width: 21.6rem;
+  height: 15rem;
+}
+body .card .img-card.show {
+  width: 30.5rem;
+  height: 15rem;
+}
+body .card .price {
+  background: #5cb85c;
+  color: #fff;
+  text-shadow: 2px 2px #333;
+  position: absolute;
+  right: -0.5rem;
+  top: 1rem;
+  padding: 5px 2rem;
+  font-size: 1.2rem;
+  border-radius: 0.2rem;
+}
+body .card h3 {
+  color: #e7480f;
+}

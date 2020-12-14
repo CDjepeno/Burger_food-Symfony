@@ -25,7 +25,7 @@
                         {{item.quantity}}
                         <a href="{{ path("cart_decrement", {id:item.product.id}) }}" class="btn btn-sm btn-primary"><i class="fi-xwsuxl-minus-solid"></i></a>
                     </td>
-                    <td>{{item.total}}&euro;</td>
+                    <td>{{item.total | amount}}</td>
                     <td ><a href="{{ path("cart_delete", {id:item.product.id})}}" class="btn btn-sm btn-danger"><i class="fi-xnsuxl-trash-bin"></i> Supprimer</a></td>
                 </tr>
             {% endfor %}
@@ -33,7 +33,7 @@
             <tfoot>
                 <tr>
                     <td colspan="3">Total :</td>
-                    <td colspan="3">{{total}}&euro;</td>
+                    <td colspan="3">{{total | amount}}</td>
                 </tr>
             </tfoot>
         </table>

@@ -27,11 +27,11 @@
                 <td>
                     <ul>
                         {% for item in p.purchaseItems %}
-                            <li>{{ item.quantity }}x {{ item.productname }} {{ item.amount }}&euro;</li>
+                            <li>{{ item.quantity }}x {{ item.productname }} {{ item.amount | amount}}</li>
                         {% endfor %}
                     </ul>
                 </td>
-                <td>{{ p.amount }}&euro;</td>
+                <td>{{ p.amount | amount }}</td>
             </tr>
         {% endfor %}
     </tbody>

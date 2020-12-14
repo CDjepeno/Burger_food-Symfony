@@ -65,6 +65,23 @@ class ProductRepository extends ServiceEntityRepository
                     ->getQuery()
                     ->getResult();
     }
+
+    /**
+     * Permet de calculer le nombre d'articles les plus commandé
+     *
+     * @param integer $limit
+     * @return void
+     */
+    public function findBestProductSale() {
+        return $this->createQueryBuilder('p')
+                    ->join('p.purchaseItems', 'pp')
+                    ->select(' p as product ,SUM(pp.quantity) as sumQuantity')
+                    ->groupBy('p') 
+                    ->orderBy('sumQuantity','DESC')
+                    ->setMaxResults(6)
+                    ->getQuery()
+                    ->getResult();
+    }
    
 
     // /**
