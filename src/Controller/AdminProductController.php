@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use Symfony\UX\Chartjs\Model\Chart;
 use App\Repository\ProductRepository;
+use App\Repository\PurchaseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -31,6 +34,45 @@ class AdminProductController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet d'afficher le graphique des ventes
+     * 
+     * @Route("/admin/stats", name="stats")
+     *
+     * @return Response
+     */
+    public function bestSales(PurchaseRepository $purchase, ChartBuilderInterface $chartBuilder): Response
+    {
+        $results = $purchase->findAll();
+
+        $data=[];
+        $labels=[];
+
+        foreach($results as $r){
+            $data[]= $r->getAmount();
+            $labels[]= $r->getPurchaseAt
+            ()->format("d-m-y");
+        }
+
+        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
+        $chart->setData([
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => 'My First dataset',
+                    'backgroundColor' => 'rgb(25, 9, 132)',
+                    'borderColor' => 'rgb(255, 99, 132)',
+                    'data' => $data,
+                ],
+            ],
+        ]);
+
+        $chart->setOptions([/* ... */]);
+
+        
+        return $this->render("admin_product/stats.html.twig",[
+        ]);
+    }
     /**
      * Permet d'ajouter et de modifier un produit
      *
