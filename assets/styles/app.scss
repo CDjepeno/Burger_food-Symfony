@@ -1,4 +1,10 @@
 @import "~bootstrap/scss/bootstrap";
+/*************************************************/
+/********************* GLOBAL ********************/
+/*************************************************/
+*:hover {
+	transition : all .3s ease 0s;
+}
 
 body {
     background-image : url("../images/bg.jpg");
