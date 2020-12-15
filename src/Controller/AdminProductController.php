@@ -50,8 +50,7 @@ class AdminProductController extends AbstractController
 
         foreach($results as $r){
             $data[]= $r->getAmount();
-            $labels[]= $r->getPurchaseAt
-            ()->format("d-m-y");
+            $labels[]= $r->getPurchaseAt()->format("d-m-y");
         }
 
         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
@@ -71,6 +70,7 @@ class AdminProductController extends AbstractController
 
         
         return $this->render("admin_product/stats.html.twig",[
+            'chart' => $chart
         ]);
     }
     /**
