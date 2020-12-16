@@ -38,7 +38,11 @@ class AdminProductController extends AbstractController
      * Permet d'afficher le graphique des ventes
      * 
      * @Route("/admin/stats", name="stats")
-     *
+     * @IsGranted("ROLE_ADMIN", message="Vous n'avez pas le droit d'acceder à cette ressource")
+     * 
+     * @param PurchaseRepository $purchase
+     * @param ChartBuilder $chartBuilder
+     * 
      * @return Response
      */
     public function bestSales(PurchaseRepository $purchase, ChartBuilderInterface $chartBuilder): Response
