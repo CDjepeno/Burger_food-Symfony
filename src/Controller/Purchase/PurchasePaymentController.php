@@ -9,8 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class PurchasePaymentController extends AbstractController {
 
@@ -25,7 +26,6 @@ class PurchasePaymentController extends AbstractController {
      * Permet d'afficher le formulaire de paiement
      * 
      * @Route("/purchase/pay/{id}", name="purchase_pay")
-     * @IsGranted("ROLE_USER", message="vous devez être connecté pour effectuer un paiement")
      * 
      * @return Response
      */

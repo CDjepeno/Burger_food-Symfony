@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class PurchaseConfirmationController extends AbstractController
 {
@@ -29,7 +30,6 @@ class PurchaseConfirmationController extends AbstractController
      * Permet de gérer le formulaire de commande
      * 
      * @Route("/purchase/confirm", name="purchase_confirm")
-     * @IsGranted("ROLE_USER", message="vous devez être connecté pour confirmer votre commande")
      *
      * @return Response
      */

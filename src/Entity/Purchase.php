@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Purchase
 {
     public const STATUS_PENDING = "PENDING";
-    public const STATUS_PAID = "PAID";
+    public const STATUS_PAID    = "PAID";
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

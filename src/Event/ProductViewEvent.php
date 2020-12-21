@@ -13,7 +13,6 @@ class ProductViewEvent extends Event
         $this->product = $product;
     }
 
-
     /**
      * Get the value of product
      */ 
