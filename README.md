@@ -5,10 +5,10 @@
 ![icon](https://user-images.githubusercontent.com/43074465/98969194-e5329780-250e-11eb-8b4b-40c3c1edad88.png)
 # Burger_food
 (Symfony) Site de fast-food
-- Utilisation Chart-js 
+- Utilisation de Chart-js 
 - Gestion d'un système de paiement stripe
 - Gestion d'envoi d'email
-- Gestion de bubscriber
+- Gestion de subscriber
 - Gestion des formulaires.
 - Fixtures
 - Système d'administration CRUD
