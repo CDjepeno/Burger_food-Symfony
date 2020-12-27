@@ -20,7 +20,7 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère les véhicules par leurs catégories
+     * Récupère les produits par leurs catégories
      *
      * @param [type] $id_category
      * @return Car[]
