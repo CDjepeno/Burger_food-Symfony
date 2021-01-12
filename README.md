@@ -7,6 +7,7 @@
 (Symfony) Site de fast-food
 - Utilisation de Chart-js 
 - Gestion d'un système de paiement stripe
+- Gestion de commande.
 - Gestion d'envoi d'email
 - Gestion de subscriber
 - Gestion des formulaires.
