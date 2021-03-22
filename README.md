@@ -18,7 +18,6 @@ Burger_Food
 ![icon](https://user-images.githubusercontent.com/43074465/98969194-e5329780-250e-11eb-8b4b-40c3c1edad88.png)
 
 # Features
-(Symfony) Site de fast-food
 - Utilisation de Chart-js 
 - Gestion d'un système de paiement stripe
 - Gestion de commande.
