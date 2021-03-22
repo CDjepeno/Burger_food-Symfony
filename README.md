@@ -33,7 +33,7 @@ Burger_Food
 $ git clone https://github.com/CDjepeno/Burger_food-Symfony.git
 ```
 ```bash
-$ cd rent-car-Symfony
+$ cd Burger_food-Symfony
 ```
 ```bash
 $ composer install
